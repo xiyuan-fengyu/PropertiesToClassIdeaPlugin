@@ -1,0 +1,39 @@
+<idea-plugin version="2">
+  <id>com.xiyuan.PropertiesToClass</id>
+  <name>PropertiesToClass</name>
+  <version>1.0</version>
+  <vendor email="xiyuan_fengyu@163.com" url="http://www.yourcompany.com">xiyuan_fengyu</vendor>
+
+  <description>
+    <![CDATA[
+      A tool to generate a class for a properties file.<br>
+      Right click on the *.properties file, then click Generate Class, choose a package,
+      a java file will be generated.
+    ]]>
+  </description>
+
+  <change-notes><![CDATA[
+      The first virsion!
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="141.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <actions>
+    <action id="com.xiyuan.action.PropertiesToClass" class="com.xiyuan.p2class.action.PropertiesToClass"
+            text="Generate Class" description="A tool to generate a class for a properties file.">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="WeighingNewGroup"/>
+    </action>
+  </actions>
+</idea-plugin>
