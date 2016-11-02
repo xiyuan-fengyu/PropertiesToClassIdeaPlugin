@@ -178,7 +178,7 @@ public class PropertiesToClass extends AnAction {
             classStrBld.append("\tstatic {\n");
             classStrBld.append("\t\tproperties = new Properties();\n");
             classStrBld.append("\t\ttry {\n");
-            classStrBld.append("\t\t\t\tproperties.load(").append(className).append(".class.getClassLoader().getResourceAsStream(\"").append(fileShortPath).append("\"));\n");
+            classStrBld.append("\t\t\tproperties.load(").append(className).append(".class.getClassLoader().getResourceAsStream(\"").append(fileShortPath).append("\"));\n");
             classStrBld.append("\t\t}\n");
             classStrBld.append("\t\tcatch (Exception e) {\n");
             classStrBld.append("\t\t\te.printStackTrace();\n");
