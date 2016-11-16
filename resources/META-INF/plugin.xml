@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>com.xiyuan.PropertiesToClass</id>
   <name>PropertiesToClass</name>
-  <version>1.0</version>
+  <version>1.1</version>
   <vendor email="xiyuan_fengyu@163.com" url="https://github.com/xiyuan-fengyu/PropertiesToClassIdeaPlugin">xiyuan_fengyu</vendor>
 
   <description>
@@ -13,7 +13,7 @@
   </description>
 
   <change-notes><![CDATA[
-      The first virsion!
+      fix a bug: if some properties files in different projects has the same sub path, all generated java flie will be saved in the same path;
     ]]>
   </change-notes>
 

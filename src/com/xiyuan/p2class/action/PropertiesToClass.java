@@ -45,8 +45,8 @@ public class PropertiesToClass extends AnAction {
             }
 
             PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
-            String historyPath = propertiesComponent.getValue(fileShortPath + ".classPath");
-            String packageName = propertiesComponent.getValue(fileShortPath + ".package");
+            String historyPath = propertiesComponent.getValue(filePath + ".classPath");
+            String packageName = propertiesComponent.getValue(filePath + ".package");
 
             String fileName = file.getName();
             String className = className(fileName);
@@ -76,8 +76,8 @@ public class PropertiesToClass extends AnAction {
                 if (selectedPath != null) {
                     classPath = selectedPath + "/" + className + ".java";
                     packageName = psiPackage.getQualifiedName();
-                    propertiesComponent.setValue(fileShortPath + ".classPath", selectedPath);
-                    propertiesComponent.setValue(fileShortPath + ".package", packageName);
+                    propertiesComponent.setValue(filePath + ".classPath", selectedPath);
+                    propertiesComponent.setValue(filePath + ".package", packageName);
                 }
                 classFile = new File(classPath);
             }
