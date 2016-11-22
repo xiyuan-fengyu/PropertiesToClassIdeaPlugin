@@ -23,8 +23,8 @@ class KeyValues {
     private boolean isModified = false;
 
     KeyValues() {
-        oldValues.put(Keys.regenerate, properties.getBoolean(keyPackage + Keys.regenerate));
-        oldValues.put(Keys.delete, properties.getBoolean(keyPackage + Keys.delete));
+        oldValues.put(Keys.regenerate, properties.getBoolean(keyPackage + Keys.regenerate, true));
+        oldValues.put(Keys.delete, properties.getBoolean(keyPackage + Keys.delete, true));
         curValues.putAll(oldValues);
     }
 
