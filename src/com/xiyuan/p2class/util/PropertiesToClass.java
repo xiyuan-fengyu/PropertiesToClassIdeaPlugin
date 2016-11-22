@@ -1,10 +1,7 @@
-package com.xiyuan.p2class.action;
+package com.xiyuan.p2class.util;
 
 import com.intellij.ide.util.PackageChooserDialog;
 import com.intellij.ide.util.PropertiesComponent;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -17,18 +14,15 @@ import java.io.FileOutputStream;
 import java.util.Properties;
 
 /**
- * Created by xiyuan_fengyu on 2016/11/1.
+ * Created by xiyuan_fengyu on 2016/11/21.
  */
-public class PropertiesToClass extends AnAction {
+public class PropertiesToClass {
 
-    /**
-     * 点击按钮后
-     * @param e
-     */
-    @Override
-    public void actionPerformed(AnActionEvent e) {
-        Project project = CommonDataKeys.PROJECT.getData(e.getDataContext());
-        VirtualFile file = CommonDataKeys.VIRTUAL_FILE.getData(e.getDataContext());
+    public static void generate(Project project, VirtualFile file) {
+        generate(project, file, false);
+    }
+
+    public static void generate(Project project, VirtualFile file, boolean javaExistedNecessary) {
         if (project != null && file != null) {
             String filePath = file.getPath();
             String fileShortPath = filePath;
@@ -53,6 +47,10 @@ public class PropertiesToClass extends AnAction {
             String classPath = historyPath + "/" + className + ".java";
             File classFile = new File(classPath);
             if (!classFile.exists()) {
+                if (javaExistedNecessary) {
+                    return;
+                }
+
                 //弹框选择包路径
                 PackageChooserDialog dialog = new PackageChooserDialog("Select a package", project);
                 dialog.show();
@@ -98,17 +96,31 @@ public class PropertiesToClass extends AnAction {
         }
     }
 
-    /**
-     * 如果文件后缀名使.properties，则显示该菜单，否则不显示
-     * @param e
-     */
-    @Override
-    public void update(AnActionEvent e) {
-        VirtualFile file = CommonDataKeys.VIRTUAL_FILE.getData(e.getDataContext());
-        e.getPresentation().setEnabledAndVisible(isPropertiesFile(file));
+    public static void delete(Project project, VirtualFile file) {
+        if (project != null && file != null) {
+            String filePath = file.getPath();
+
+            final ProjectRootManager projectRootManager = ProjectRootManager.getInstance(project);
+
+            PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
+            String historyPath = propertiesComponent.getValue(filePath + ".classPath");
+            propertiesComponent.unsetValue(filePath + ".classPath");
+            propertiesComponent.unsetValue(filePath + ".package");
+
+            String fileName = file.getName();
+            String className = className(fileName);
+            String classPath = historyPath + "/" + className + ".java";
+            File classFile = new File(classPath);
+            if (classFile.exists()) {
+                classFile.delete();
+
+                //刷新文件，让生成的文件在视图中显示出来
+                VirtualFileManager.getInstance().asyncRefresh(null);
+            }
+        }
     }
 
-    private static boolean isPropertiesFile(@Nullable VirtualFile file) {
+    public static boolean isPropertiesFile(@Nullable VirtualFile file) {
         return file != null && file.getName().endsWith(".properties");
     }
 

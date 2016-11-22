@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>com.xiyuan.PropertiesToClass</id>
   <name>PropertiesToClass</name>
-  <version>1.1</version>
+  <version>1.2</version>
   <vendor email="xiyuan_fengyu@163.com" url="https://github.com/xiyuan-fengyu/PropertiesToClassIdeaPlugin">xiyuan_fengyu</vendor>
 
   <description>
@@ -13,7 +13,10 @@
   </description>
 
   <change-notes><![CDATA[
-      fix a bug: if some properties files in different projects has the same sub path, all generated java flie will be saved in the same path;
+      Add two features:
+      1.Regenrate the java class when the properties file is changed;
+      2.Delete the java class when the properties file is deleted.
+      You can disable these features at Settings > Tools > Properties To Class.
     ]]>
   </change-notes>
 
@@ -28,12 +31,18 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
+    <applicationConfigurable groupId="tools" displayName="Properties To Class" id="com.xiyuan.action.PropertiesToClass.setting" instance="com.xiyuan.p2class.setting.AppSetting" />
   </extensions>
 
   <actions>
-    <action id="com.xiyuan.action.PropertiesToClass" class="com.xiyuan.p2class.action.PropertiesToClass"
+    <action id="com.xiyuan.action.PropertiesToClass" class="com.xiyuan.p2class.action.P2ClassAction"
             text="Generate Class" description="A tool to generate a class for a properties file.">
       <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="WeighingNewGroup"/>
     </action>
   </actions>
+  <application-components>
+    <component>
+      <implementation-class>com.xiyuan.p2class.app.App</implementation-class>
+    </component>
+  </application-components>
 </idea-plugin>
