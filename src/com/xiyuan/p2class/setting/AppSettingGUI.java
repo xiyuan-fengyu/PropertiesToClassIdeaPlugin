@@ -32,8 +32,13 @@ public class AppSettingGUI implements ItemListener {
     }
 
     private void updateAppSetting() {
-        App.settingRegenerate = (Boolean) keyValues.getCurValue(Keys.regenerate);
-        App.settingDelete = (Boolean) keyValues.getCurValue(Keys.delete);
+        try {
+            App.settingRegenerate = (Boolean) keyValues.getCurValue(Keys.regenerate);
+            App.settingDelete = (Boolean) keyValues.getCurValue(Keys.delete);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     void apply() {
@@ -48,9 +53,14 @@ public class AppSettingGUI implements ItemListener {
     }
 
     private void updateValueAndUi() {
-        regenerate.setSelected((Boolean) keyValues.getCurValue(Keys.regenerate));
-        delete.setSelected((Boolean) keyValues.getCurValue(Keys.delete));
-        root.updateUI();
+        try {
+            regenerate.setSelected((Boolean) keyValues.getCurValue(Keys.regenerate));
+            delete.setSelected((Boolean) keyValues.getCurValue(Keys.delete));
+            root.updateUI();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     JPanel getRoot() {

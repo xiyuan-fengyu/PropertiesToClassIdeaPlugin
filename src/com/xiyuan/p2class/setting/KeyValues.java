@@ -2,7 +2,6 @@ package com.xiyuan.p2class.setting;
 
 import clojure.lang.Obj;
 import com.intellij.ide.util.PropertiesComponent;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +11,7 @@ import java.util.Map;
  */
 class KeyValues {
 
-    static final String keyPackage = "com.xiyuan.PropertiesToClass.setting.";
+    private static final String keyPackage = "com.xiyuan.PropertiesToClass.setting.";
 
     private PropertiesComponent properties = PropertiesComponent.getInstance();
 
@@ -23,8 +22,13 @@ class KeyValues {
     private boolean isModified = false;
 
     KeyValues() {
-        oldValues.put(Keys.regenerate, properties.getBoolean(keyPackage + Keys.regenerate, true));
-        oldValues.put(Keys.delete, properties.getBoolean(keyPackage + Keys.delete, true));
+        try {
+            oldValues.put(Keys.regenerate, Boolean.parseBoolean(properties.getValue(keyPackage + Keys.regenerate, "true")));
+            oldValues.put(Keys.delete, Boolean.parseBoolean(properties.getValue(keyPackage + Keys.delete, "true")));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         curValues.putAll(oldValues);
     }
 
@@ -46,18 +50,15 @@ class KeyValues {
         oldValues.putAll(curValues);
         isModified = false;
 
+        System.out.println(oldValues);
+
         for (String key: curValues.keySet()) {
             Object value = curValues.get(key);
             if (value == null) {
                 properties.unsetValue(keyPackage + key);
             }
             else {
-                if (value instanceof Boolean) {
-                    properties.setValue(keyPackage + key, (Boolean) value);
-                }
-                else {
-                    properties.setValue(keyPackage + key, value.toString());
-                }
+                properties.setValue(keyPackage + key, value.toString());
             }
         }
     }
