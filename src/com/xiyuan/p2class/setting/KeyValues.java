@@ -50,8 +50,6 @@ class KeyValues {
         oldValues.putAll(curValues);
         isModified = false;
 
-        System.out.println(oldValues);
-
         for (String key: curValues.keySet()) {
             Object value = curValues.get(key);
             if (value == null) {
