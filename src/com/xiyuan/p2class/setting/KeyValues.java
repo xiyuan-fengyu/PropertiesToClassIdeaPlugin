@@ -1,6 +1,5 @@
 package com.xiyuan.p2class.setting;
 
-import clojure.lang.Obj;
 import com.intellij.ide.util.PropertiesComponent;
 
 import java.util.HashMap;
