@@ -24,11 +24,11 @@ class KeyValues {
         try {
             oldValues.put(Keys.regenerate, Boolean.parseBoolean(properties.getValue(keyPackage + Keys.regenerate, "true")));
             oldValues.put(Keys.delete, Boolean.parseBoolean(properties.getValue(keyPackage + Keys.delete, "true")));
+            curValues.putAll(oldValues);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-        curValues.putAll(oldValues);
     }
 
     boolean isModified() {
@@ -67,6 +67,7 @@ class KeyValues {
     }
 
     private void checkValueChanged() {
+        isModified = false;
         for (String key: oldValues.keySet()) {
             if (!oldValues.get(key).equals(curValues.get(key))) {
                 isModified = true;
